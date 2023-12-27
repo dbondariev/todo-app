@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { TodoForm } from '../components/TodoForm';
 import { TodoList } from '../components/TodoList';
 import { ITodo } from '../interfaces';
-import { fetchTodos } from '../api'; // Import your fetchTodos function
+import { fetchTodos } from '../api';
 
 declare var confirm: (question: string) => boolean;
 
@@ -12,7 +12,7 @@ export const TodosPage: React.FC = () => {
   useEffect(() => {
     const fetchTodosFromAPI = async () => {
       try {
-        const todosData = await fetchTodos(); // Call the fetchTodos function
+        const todosData = await fetchTodos();
         setTodos(todosData);
         console.log(todosData)
       } catch (error) {
@@ -20,7 +20,7 @@ export const TodosPage: React.FC = () => {
       }
     };
 
-    fetchTodosFromAPI(); // Call the fetchTodosFromAPI function when the component mounts
+    fetchTodosFromAPI();
   }, []);
 
   useEffect(() => {
