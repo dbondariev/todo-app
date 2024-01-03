@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { TodoForm } from '../components/TodoForm';
 import { TodoList } from '../components/TodoList';
 import { ITodo } from '../interfaces';
-import { fetchTodos } from '../api';
+import { fetchTodos } from '../services/api';
 
 declare var confirm: (question: string) => boolean;
 
