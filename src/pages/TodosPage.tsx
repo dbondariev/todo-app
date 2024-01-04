@@ -9,7 +9,7 @@ declare var confirm: (question: string) => boolean;
 export const TodosPage: React.FC = () => {
   const [todos, setTodos] = useState<ITodo[]>([]);
 
-  useEffect(() => {
+  useEffect(() => { // todo get from store and display to page
     const fetchTodosFromAPI = async () => {
       try {
         const todosData = await fetchTodos();
@@ -23,11 +23,11 @@ export const TodosPage: React.FC = () => {
     fetchTodosFromAPI();
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem('todos', JSON.stringify(todos));
-  }, [todos]);
+  // useEffect(() => { // todo
+  //   localStorage.setItem('todos', JSON.stringify(todos));
+  // }, [todos]);
 
-  const addHandler = (title: string) => {
+  const addHandler = (title: string) => { // todo add to store
     const newTodo: ITodo = {
       title: title,
       id: Date.now(),
@@ -37,7 +37,7 @@ export const TodosPage: React.FC = () => {
     setTodos((prev) => [newTodo, ...prev]);
   };
 
-  const toggleHandler = (id: number) => {
+  const toggleHandler = (id: number) => { //todo update store with completed status of todo
     setTodos((prev) =>
         prev.map((todo) => {
           if (todo.id === id) {
@@ -48,7 +48,7 @@ export const TodosPage: React.FC = () => {
     );
   };
 
-  const removeHandler = (id: number) => {
+  const removeHandler = (id: number) => { // todo remove from store
     const shouldRemove = confirm('Are you sure you want to delete?');
     if (shouldRemove) {
       setTodos((prev) => prev.filter((todo) => todo.id !== id));
