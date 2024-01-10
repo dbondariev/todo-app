@@ -1,57 +1,45 @@
-import React, { useState, useEffect } from 'react';
+import React, {  useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { TodoForm } from '../components/TodoForm';
 import { TodoList } from '../components/TodoList';
 import { ITodo } from '../interfaces';
-import { fetchTodos } from '../services/api';
+import { addTodo, toggleTodo, removeTodo, fetchTodosRequest } from '../actions';
+import {Action} from "redux-saga";
+import {ThunkDispatch} from "@reduxjs/toolkit";
+import {RootState} from "../store";
 
 declare var confirm: (question: string) => boolean;
 
 export const TodosPage: React.FC = () => {
-  const [todos, setTodos] = useState<ITodo[]>([]);
+  const todos = useSelector((state: RootState) => state.todos.data);
+  const dispatch: ThunkDispatch<{}, {}, Action> = useDispatch();
 
-  useEffect(() => { // todo get from store and display to page
-    const fetchTodosFromAPI = async () => {
-      try {
-        const todosData = await fetchTodos();
-        setTodos(todosData);
-        console.log(todosData)
-      } catch (error) {
-        console.error('Error fetching todos:', error);
-      }
-    };
 
-    fetchTodosFromAPI();
-  }, []);
+  useEffect(() => {
+    dispatch(fetchTodosRequest());
+  }, [dispatch]);
 
-  // useEffect(() => { // todo
-  //   localStorage.setItem('todos', JSON.stringify(todos));
-  // }, [todos]);
+  useEffect(() => {
+  }, [todos]);
 
-  const addHandler = (title: string) => { // todo add to store
-    const newTodo: ITodo = {
-      title: title,
-      id: Date.now(),
-      completed: false,
-      todo: ''
-    };
-    setTodos((prev) => [newTodo, ...prev]);
+  const addHandler = (title: string) => {
+    // const newTodo: ITodo = {
+    //   title: title,
+    //   id: Date.now(),
+    //   completed: false,
+    //   todo: ''
+    // };
+    // dispatch(addTodo(newTodo)); // Dispatch an action to add a new todo to the store
   };
 
-  const toggleHandler = (id: number) => { //todo update store with completed status of todo
-    setTodos((prev) =>
-        prev.map((todo) => {
-          if (todo.id === id) {
-            todo.completed = !todo.completed;
-          }
-          return todo;
-        })
-    );
+  const toggleHandler = (id: number) => {
+    dispatch(toggleTodo(id)); // Dispatch an action to update the completed status of a todo in the store
   };
 
-  const removeHandler = (id: number) => { // todo remove from store
+  const removeHandler = (id: number) => {
     const shouldRemove = confirm('Are you sure you want to delete?');
     if (shouldRemove) {
-      setTodos((prev) => prev.filter((todo) => todo.id !== id));
+      dispatch(removeTodo(id)); // Dispatch an action to remove a todo from the store
     }
   };
 

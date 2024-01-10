@@ -1,38 +1,35 @@
-// reducer.ts
-import { TodoActionTypes, FETCH_TODOS_REQUEST, FETCH_TODOS_SUCCESS, FETCH_TODOS_FAILURE } from '../actions';
+// reducers/index.ts
+import { TodoActionTypes, FETCH_TODOS_SUCCESS, FETCH_TODOS_FAILURE } from '../actions';
+import { ITodo } from "../interfaces";
 
-interface TodoState {
+export interface ITodoState {
     loading: boolean;
-    todos: any[];
+    data: ITodo[];
     error: string;
 }
 
-const initialState: TodoState = {
+const initialState: ITodoState = {
     loading: false,
-    todos: [],
-    error: ''
+    data: [],
+    error: '',
 };
 
-const reducer = (state = initialState, action: TodoActionTypes): TodoState => {
+const reducer = (state = initialState, action: TodoActionTypes): ITodoState => {
     switch (action.type) {
-        case FETCH_TODOS_REQUEST:
-            return {
-                ...state,
-                loading: true
-            };
         case FETCH_TODOS_SUCCESS:
             return {
                 loading: false,
-                todos: action.payload,
-                error: ''
+                data: action.payload.todos,
+                error: '',
             };
         case FETCH_TODOS_FAILURE:
             return {
                 loading: false,
-                todos: [],
-                error: action.payload
+                data: [],
+                error: action.payload,
             };
-        default: return state;
+        default:
+            return state;
     }
 };
 
