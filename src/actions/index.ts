@@ -45,9 +45,9 @@ export const fetchTodosRequest = (): FetchTodosRequest => {
     }
 };
 
-export const fetchTodosSuccess = (todos: any): TodoActionTypes => ({
+export const fetchTodosSuccess = (todos: ITodo[]): TodoActionTypes => ({
     type: FETCH_TODOS_SUCCESS,
-    payload: { todos}, // Wrap 'todos' in an object
+    payload: { todos},
 });
 
 export const fetchTodosFailure = (error: string): TodoActionTypes => ({
