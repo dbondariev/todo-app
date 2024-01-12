@@ -11,7 +11,7 @@ import {RootState} from "../store";
 declare var confirm: (question: string) => boolean;
 
 export const TodosPage: React.FC = () => {
-  const todos = useSelector((state: RootState) => state.todos.data);
+  const todos = useSelector((state: RootState) => state.todos.todos.data);
   const dispatch: ThunkDispatch<{}, {}, Action> = useDispatch();
 
 
