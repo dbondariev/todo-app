@@ -1,7 +1,7 @@
 // api.ts
 
 import axios, {AxiosResponse} from 'axios';
-import {ITodo} from '../interfaces'; // Import ITodo from the correct file
+import {ITodo} from '../interfaces';
 
 const baseURL = 'https://dummyjson.com';
 
@@ -18,7 +18,6 @@ export const fetchTodos = async (): Promise<ITodo[]> => {
             `${baseURL}/todos`
         );
 
-        // Extract the 'todos' array from the response
         return response.data.todos;
     } catch (error) {
         console.error('Error while fetching todos:', error);
