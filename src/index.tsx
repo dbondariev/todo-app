@@ -14,7 +14,7 @@ const rootContainer = document.getElementById('root')!;
 const root = createRoot(rootContainer);
 
 root.render(
-    <Provider store={store}>
-        <App />
-    </Provider>
+  <Provider store={store}>
+    <App />
+  </Provider>
 );
