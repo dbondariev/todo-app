@@ -4,10 +4,7 @@ import './index.css';
 import App from './App';
 import 'materialize-css/dist/css/materialize.min.css';
 import { Provider } from 'react-redux';
-import { configureStore } from '@reduxjs/toolkit';
-import reducer from './reducers';
-
-const store = configureStore({ reducer });
+import {store} from './store'
 
 const rootContainer = document.getElementById('root')!;
 

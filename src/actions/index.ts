@@ -14,7 +14,7 @@ interface FetchTodosRequest {
 
 interface FetchTodosSuccess {
     type: typeof FETCH_TODOS_SUCCESS;
-    payload: ITodo[];
+    payload: { todos: ITodo[] };
 }
 
 interface FetchTodosFailure {
@@ -39,13 +39,15 @@ interface RemoveTodo {
 
 export type TodoActionTypes = FetchTodosRequest | FetchTodosSuccess | FetchTodosFailure | AddTodo | ToggleTodo | RemoveTodo;
 
-export const fetchTodosRequest = (): FetchTodosRequest => ({
-    type: FETCH_TODOS_REQUEST,
-});
+export const fetchTodosRequest = (): FetchTodosRequest => {
+    return {
+        type: FETCH_TODOS_REQUEST,
+    }
+};
 
-export const fetchTodosSuccess = (todos: any[]): TodoActionTypes => ({
+export const fetchTodosSuccess = (todos: ITodo[]): TodoActionTypes => ({
     type: FETCH_TODOS_SUCCESS,
-    payload: todos
+    payload: { todos},
 });
 
 export const fetchTodosFailure = (error: string): TodoActionTypes => ({
