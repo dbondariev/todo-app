@@ -1,45 +1,12 @@
-import {
-  TodoActionTypes,
-  FETCH_TODOS_REQUEST,
-  FETCH_TODOS_SUCCESS,
-  FETCH_TODOS_FAILURE
-} from '../actions';
+import { combineReducers } from 'redux';
+import todosReducer, { ITodoState } from './todosReducer';
 
-interface TodoState {
-  loading: boolean;
-  todos: any[];
-  error: string;
+export interface RootState {
+    todos: ITodoState;
 }
 
-const initialState: TodoState = {
-  loading: false,
-  todos: [],
-  error: ''
-};
+const rootReducer = combineReducers({
+    todos: todosReducer,
+});
 
-const reducer = (state = initialState, action: TodoActionTypes): TodoState => {
-  switch (action.type) {
-    case FETCH_TODOS_REQUEST:
-      return {
-        ...state,
-        loading: true
-      };
-    case FETCH_TODOS_SUCCESS:
-      return {
-        loading: false,
-        todos: action.payload,
-        error: ''
-      };
-    case FETCH_TODOS_FAILURE:
-      return {
-        loading: false,
-        todos: [],
-        error: action.payload
-      };
-    default:
-      return state;
-  }
-};
-
-export default reducer;
-
+export default rootReducer;
