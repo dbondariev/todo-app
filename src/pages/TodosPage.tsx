@@ -1,13 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, {  useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { TodoForm } from '../components/TodoForm';
 import { TodoList } from '../components/TodoList';
 import { ITodo } from '../interfaces';
-import { fetchTodos } from '../services/api';
+import { addTodo, toggleTodo, removeTodo, fetchTodosRequest } from '../actions';
+import {Action} from "redux-saga";
+import {ThunkDispatch} from "@reduxjs/toolkit";
+import {RootState} from "../store";
 
 declare let confirm: (question: string) => boolean;
 
 export const TodosPage: React.FC = () => {
-  const [todos, setTodos] = useState<ITodo[]>([]);
+  const todos = useSelector((state: RootState) => state.todos.todos.data);
+  const dispatch: ThunkDispatch<{}, {}, Action> = useDispatch();
 
   useEffect(() => {
     // todo get from store and display to page
@@ -21,12 +26,13 @@ export const TodosPage: React.FC = () => {
       }
     };
 
-    fetchTodosFromAPI();
-  }, []);
 
-  // useEffect(() => { // todo
-  //   localStorage.setItem('todos', JSON.stringify(todos));
-  // }, [todos]);
+  useEffect(() => {
+    dispatch(fetchTodosRequest());
+  }, [dispatch]);
+
+  useEffect(() => {
+  }, [todos]);
 
   const addHandler = (title: string) => {
     // todo add to store
@@ -53,9 +59,10 @@ export const TodosPage: React.FC = () => {
 
   const removeHandler = (id: number) => {
     // todo remove from store
+
     const shouldRemove = confirm('Are you sure you want to delete?');
     if (shouldRemove) {
-      setTodos((prev) => prev.filter((todo) => todo.id !== id));
+      dispatch(removeTodo(id)); // Dispatch an action to remove a todo from the store
     }
   };
 

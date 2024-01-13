@@ -12,10 +12,12 @@ export const TodoList: React.FC<TodoListProps> = ({ todos, onRemove, onToggle })
     return <p className="center">No Events Yet</p>;
   }
 
+
   const removeHandler = (event: React.MouseEvent, id: number) => {
     event.preventDefault();
     onRemove(id);
   };
+
 
   return (
     <ul>
@@ -45,4 +47,5 @@ export const TodoList: React.FC<TodoListProps> = ({ todos, onRemove, onToggle })
       })}
     </ul>
   );
+
 };

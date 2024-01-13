@@ -42,3 +42,4 @@ const reducer = (state = initialState, action: TodoActionTypes): TodoState => {
 };
 
 export default reducer;
+

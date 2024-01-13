@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import { ITodo } from '../interfaces';
 
+
 const baseURL = 'https://dummyjson.com';
 
 interface TodoApiResponse {
@@ -20,4 +21,5 @@ export const fetchTodos = async (): Promise<ITodo[]> => {
     console.error('Error while fetching todos:', error);
     throw error;
   }
+
 };

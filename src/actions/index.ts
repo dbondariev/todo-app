@@ -12,8 +12,10 @@ interface FetchTodosRequest {
 }
 
 interface FetchTodosSuccess {
+
   type: typeof FETCH_TODOS_SUCCESS;
   payload: ITodo[];
+
 }
 
 interface FetchTodosFailure {
@@ -51,6 +53,7 @@ export const fetchTodosRequest = (): FetchTodosRequest => ({
 export const fetchTodosSuccess = (todos: any[]): TodoActionTypes => ({
   type: FETCH_TODOS_SUCCESS,
   payload: todos
+
 });
 
 export const fetchTodosFailure = (error: string): TodoActionTypes => ({

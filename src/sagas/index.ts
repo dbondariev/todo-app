@@ -5,8 +5,10 @@ import {
   fetchTodosFailure,
   TodoActionTypes
 } from '../actions';
+
 import { fetchTodos } from '../services/api';
 import { ITodo } from '../interfaces';
+
 
 function* fetchTodosSaga(): Generator<CallEffect | PutEffect<TodoActionTypes>, void, unknown> {
   try {
@@ -21,5 +23,6 @@ function* fetchTodosSaga(): Generator<CallEffect | PutEffect<TodoActionTypes>, v
 function* rootSaga(): Generator {
   yield takeEvery(FETCH_TODOS_REQUEST, fetchTodosSaga);
 }
+
 
 export default rootSaga;
