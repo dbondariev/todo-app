@@ -2,11 +2,11 @@ import { combineReducers } from 'redux';
 import todosReducer, { ITodoState } from './todosReducer';
 
 export interface RootState {
-    todos: ITodoState;
+  todos: ITodoState;
 }
 
 const rootReducer = combineReducers({
-    todos: todosReducer,
+  todos: todosReducer
 });
 
 export default rootReducer;
