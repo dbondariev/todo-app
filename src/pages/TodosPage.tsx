@@ -9,7 +9,7 @@ import { RootState } from '../store';
 
 export const TodosPage: React.FC = () => {
   const todos = useSelector((state: RootState) => state.todos.todos.data);
-  const dispatch: ThunkDispatch<{}, {}, Action> = useDispatch();
+  const dispatch: ThunkDispatch<RootState, undefined, Action> = useDispatch();
 
   useEffect(() => {
     dispatch(fetchTodosRequest());
