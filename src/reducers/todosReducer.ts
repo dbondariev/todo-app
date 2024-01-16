@@ -1,4 +1,10 @@
-import { TodoActionTypes, FETCH_TODOS_SUCCESS, FETCH_TODOS_FAILURE } from '../actions';
+import {
+  FETCH_TODOS_FAILURE,
+  FETCH_TODOS_SUCCESS,
+  REMOVE_TODO,
+  TodoActionTypes,
+  TOGGLE_TODO
+} from '../actions';
 import { ITodo } from '../interfaces';
 
 export interface ITodoState {
@@ -27,6 +33,13 @@ const todosReducer = (state = initialState, action: TodoActionTypes): ITodoState
         data: [],
         error: action.payload
       };
+    case REMOVE_TODO: {
+      const updatedTodosRemove = state.data.filter((todo) => todo.id !== action.payload);
+      return {
+        ...state,
+        data: updatedTodosRemove
+      };
+    }
     default:
       return state;
   }
