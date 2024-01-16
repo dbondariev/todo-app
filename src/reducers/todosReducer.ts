@@ -1,4 +1,10 @@
-import { TodoActionTypes, FETCH_TODOS_SUCCESS, FETCH_TODOS_FAILURE } from '../actions';
+import {
+  FETCH_TODOS_FAILURE,
+  FETCH_TODOS_SUCCESS,
+  REMOVE_TODO,
+  TodoActionTypes,
+  TOGGLE_TODO
+} from '../actions';
 import { ITodo } from '../interfaces';
 
 export interface ITodoState {
@@ -27,6 +33,18 @@ const todosReducer = (state = initialState, action: TodoActionTypes): ITodoState
         data: [],
         error: action.payload
       };
+    case TOGGLE_TODO: {
+      const updatedTodosToggle = state.data.map((todo) => {
+        if (todo.id === action.payload) {
+          return { ...todo, completed: !todo.completed };
+        }
+        return todo;
+      });
+      return {
+        ...state,
+        data: updatedTodosToggle
+      };
+    }
     default:
       return state;
   }
